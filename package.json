@@ -1,0 +1,42 @@
+{
+  "name": "mewclient",
+  "version": "1.0.0",
+  "description": "MewClient — лаунчер Minecraft в стиле Millida",
+  "author": "MewClient Team",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "build:portable": "electron-builder --win portable"
+  },
+  "dependencies": {
+    "minecraft-launcher-core": "^3.18.0"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.mewclient.launcher",
+    "productName": "MewClient",
+    "directories": { "output": "dist", "buildResources": "build" },
+    "files": ["main.js", "preload.js", "src/**/*", "package.json"],
+    "win": {
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "MewClient"
+    },
+    "mac": { "target": "dmg", "icon": "build/icon.icns" },
+    "linux": { "target": "AppImage", "icon": "build/icon.png", "category": "Game" }
+  }
+}
