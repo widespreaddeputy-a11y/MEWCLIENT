@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MewClient</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="titlebar">
+  <div class="logo">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
+      <path d="M4 18V6l4 5 4-7 4 7 4-5v12" stroke="url(#g1)" stroke-width="2.4"
+            stroke-linecap="round" stroke-linejoin="round"/>
+      <defs><linearGradient id="g1" x1="0" y1="0" x2="24" y2="24">
+        <stop stop-color="#11998E"/><stop offset="1" stop-color="#5EC64D"/>
+      </linearGradient></defs>
+    </svg>
+    <span>MEW<b>CLIENT</b></span>
+  </div>
+  <div class="wc-group">
+    <button id="btn-min" class="wc" title="Свернуть">
+      <svg viewBox="0 0 12 12" width="12" height="12"><path d="M2 6h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+    <button id="btn-max" class="wc" title="Развернуть">
+      <svg viewBox="0 0 12 12" width="12" height="12"><rect x="2.5" y="2.5" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
+    </button>
+    <button id="btn-close" class="wc wc-close" title="Закрыть">
+      <svg viewBox="0 0 12 12" width="12" height="12"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar">
+    <nav class="nav">
+      <button class="nav-item active" data-page="home">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/>
+        </svg><span>Главная</span>
+      </button>
+      <button class="nav-item" data-page="versions">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3 3 7.5 12 12l9-4.5L12 3Z"/><path d="M3 12l9 4.5L21 12"/><path d="M3 16.5 12 21l9-4.5"/>
+        </svg><span>Версии</span>
+      </button>
+      <button class="nav-item" data-page="settings">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.05A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.05A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6 1.7 1.7 0 0 0 10 3.05V3a2 2 0 1 1 4 0v.05A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9v.05a1.7 1.7 0 0 0 1.55 1H21a2 2 0 1 1 0 4h-.05a1.7 1.7 0 0 0-1.55 1Z"/>
+        </svg><span>Настройки</span>
+      </button>
+      <button class="nav-item" data-page="console">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="16" rx="3"/><path d="M7 9l3 3-3 3"/><path d="M13 15h4"/>
+        </svg><span>Консоль</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="account-card">
+        <div class="avatar" id="avatar">S</div>
+        <div class="acc-info">
+          <div class="acc-name" id="side-nick">Steve</div>
+          <div class="acc-status"><span class="dot"></span> Оффлайн режим</div>
+        </div>
+      </div>
+      <div class="version-tag" id="side-version">1.20.1</div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <section id="page-home" class="page active">
+      <div class="hero">
+        <div class="hero-content">
+          <div class="hero-badge">MewClient Launcher</div>
+          <h1>Добро пожаловать<br/>в <span class="grad">MewClient</span></h1>
+          <p class="hero-sub">Быстрый, красивый и удобный лаунчер Minecraft. Выбери версию, введи ник — и вперёд!</p>
+
+          <div class="quick-row">
+            <div class="field">
+              <label>Ник</label>
+              <input id="home-nick" type="text" maxlength="16" placeholder="Введи ник" />
+            </div>
+            <div class="field">
+              <label>Версия</label>
+              <div class="select-wrap"><select id="home-version"></select></div>
+            </div>
+          </div>
+
+          <div class="play-row">
+            <button id="btn-play" class="btn-play">
+              <span class="btn-play-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </span>
+              <span class="btn-play-text">ИГРАТЬ</span>
+            </button>
+            <div class="progress-box" id="progress-box">
+              <div class="progress-info"><span id="progress-label">Подготовка...</span><span id="progress-percent">0%</span></div>
+              <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="news-grid">
+        <article class="news-card">
+          <div class="news-img" style="background:linear-gradient(135deg,#11998E,#5EC64D)"></div>
+          <div class="news-body">
+            <span class="news-tag">Обновление</span>
+            <h3>MewClient 1.0 уже здесь</h3>
+            <p>Новый интерфейс в стиле Millida, ускоренные загрузки и поддержка всех версий от 1.8.9 до новых.</p>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-img" style="background:linear-gradient(135deg,#6AA9E9,#11998E)"></div>
+          <div class="news-body">
+            <span class="news-tag">Совет</span>
+            <h3>Как выбрать RAM</h3>
+            <p>Для ванильного Minecraft хватит 2–4 ГБ. Для сборок с модами — от 6 ГБ.</p>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-img" style="background:linear-gradient(135deg,#F5AA38,#FF6B5E)"></div>
+          <div class="news-body">
+            <span class="news-tag">Скоро</span>
+            <h3>Вход через Microsoft</h3>
+            <p>Авторизация по официальному аккаунту появится в следующем обновлении.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="page-versions" class="page">
+      <div class="page-head">
+        <div><h2>Версии Minecraft</h2><p class="muted">Все релизы от 1.8.9 до самых новых. Выбери любую.</p></div>
+      </div>
+      <div class="search-row">
+        <input id="version-search" type="text" placeholder="Поиск версии..." />
+        <button id="btn-refresh" class="btn-ghost">Обновить список</button>
+      </div>
+      <div class="versions-grid" id="versions-grid"><div class="empty">Загрузка списка версий...</div></div>
+    </section>
+
+    <section id="page-settings" class="page">
+      <div class="page-head"><div><h2>Настройки</h2><p class="muted">Параметры запуска и папки игры.</p></div></div>
+      <div class="settings-grid">
+
+        <div class="card">
+          <h3>Игрок</h3>
+          <div class="field"><label>Ник</label><input id="set-nick" type="text" maxlength="16" /></div>
+          <div class="field"><label>Версия по умолчанию</label><div class="select-wrap"><select id="set-version"></select></div></div>
+        </div>
+
+        <div class="card">
+          <h3>Производительность</h3>
+          <div class="field"><label>Оперативная память: <b id="ram-val">4096 МБ</b></label>
+            <input id="set-ram" type="range" min="1024" max="16384" step="512" value="4096" />
+            <div class="range-hint"><span>1 ГБ</span><span>16 ГБ</span></div>
+          </div>
+          <div class="field"><label>Путь к Java (необязательно)</label>
+            <div class="row"><input id="set-java" type="text" placeholder="Автоопределение" />
+              <button class="btn-ghost" id="btn-pick-java">Обзор</button>
+              <button class="btn-ghost" id="btn-detect-java">Найти</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Окно игры</h3>
+          <div class="row">
+            <div class="field"><label>Ширина</label><input id="set-w" type="number" min="640" max="3840" /></div>
+            <div class="field"><label>Высота</label><input id="set-h" type="number" min="480" max="2160" /></div>
+          </div>
+          <label class="switch"><input id="set-fullscreen" type="checkbox" /><span class="slider"></span><span class="switch-text">Полноэкранный режим</span></label>
+        </div>
+
+        <div class="card">
+          <h3>Папка игры</h3>
+          <div class="field"><label>Директория</label>
+            <div class="row"><input id="set-dir" type="text" placeholder="По умолчанию" />
+              <button class="btn-ghost" id="btn-pick-dir">Обзор</button>
+              <button class="btn-ghost" id="btn-open-dir">Открыть</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="settings-actions">
+        <button id="btn-save" class="btn-primary">Сохранить настройки</button>
+        <span id="save-status" class="save-status"></span>
+      </div>
+    </section>
+
+    <section id="page-console" class="page">
+      <div class="page-head"><div><h2>Консоль</h2><p class="muted">Логи загрузки и запуска игры.</p></div><button id="btn-clear-log" class="btn-ghost">Очистить</button></div>
+      <div class="console" id="console"></div>
+    </section>
+  </main>
+</div>
+
+<!-- Модальное окно обновления -->
+<div class="modal-overlay" id="update-modal" style="display: none;">
+  <div class="modal">
+    <div class="modal-icon">
+      <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/>
+        <path d="M21 3v5h-5"/>
+      </svg>
+    </div>
+    <h3>Доступна новая версия</h3>
+    <p>У тебя <b id="update-current">1.0.0</b>, а на GitHub уже <b id="update-latest">1.0.1</b>. Скачать новую?</p>
+
+    <div class="modal-actions">
+      <button class="btn-ghost" id="update-later">Позже</button>
+      <button class="btn-primary" id="update-download">Скачать</button>
+    </div>
+  </div>
+</div>
+
+<script src="renderer.js"></script>
+</body>
+</html>
