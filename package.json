@@ -9,8 +9,7 @@
     "build": "electron-builder",
     "build:win": "electron-builder --win",
     "build:mac": "electron-builder --mac",
-    "build:linux": "electron-builder --linux",
-    "build:all": "electron-builder --win --mac --linux"
+    "build:linux": "electron-builder --linux"
   },
   "dependencies": {
     "minecraft-launcher-core": "^3.18.0"
@@ -41,7 +40,8 @@
       "target": [
         { "target": "dmg", "arch": ["x64", "arm64"] }
       ],
-      "category": "public.app-category.games"
+      "category": "public.app-category.games",
+      "identity": null
     },
     "linux": {
       "target": [
