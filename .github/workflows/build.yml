@@ -12,15 +12,14 @@ jobs:
   build:
     strategy:
       fail-fast: false
-    matrix:
-      include:
-        - os: windows-latest
-          platform: win
-        - os: macos-latest
-          platform: mac
-        # ИСПОЛЬЗУЕМ 22.04, чтобы избежать багов новых версий Ubuntu
-        - os: ubuntu-22.04
-          platform: linux
+      matrix: # <--- ВОТ ЗДЕСЬ БЫЛО НЕПРАВИЛЬНО. ТЕПЕРЬ ВНУТРИ STRATEGY
+        include:
+          - os: windows-latest
+            platform: win
+          - os: macos-latest
+            platform: mac
+          - os: ubuntu-22.04
+            platform: linux
 
     runs-on: ${{ matrix.os }}
 
@@ -33,7 +32,6 @@ jobs:
         with:
           node-version: 22
 
-      # Установка пакетов для сборки Linux (.deb, .rpm, .AppImage)
       - name: Install Linux Dependencies
         if: matrix.os == 'ubuntu-22.04'
         run: |
