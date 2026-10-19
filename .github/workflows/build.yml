@@ -18,10 +18,13 @@ jobs:
             platform: win
           - os: macos-latest
             platform: mac
-          - os: ubuntu-22.04
+          # Для Linux используем Docker-образ, поэтому runs-on: ubuntu-latest
+          - os: ubuntu-latest
             platform: linux
 
     runs-on: ${{ matrix.os }}
+    # --- ДОБАВЛЯЕМ DOCKER-ОБРАЗ ТОЛЬКО ДЛЯ LINUX ---
+    container: ${{ matrix.os == 'ubuntu-latest' && 'electronuserland/builder:wine' || '' }}
 
     steps:
       - name: Checkout
@@ -31,14 +34,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-
-      # Установка всех необходимых зависимостей для сборки Linux (AppImage, deb, rpm)
-      - name: Install Linux Dependencies
-        if: matrix.os == 'ubuntu-22.04'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y rpm libarchive-tools libfuse2
-          sudo gem install fpm
 
       - name: Install dependencies
         run: npm ci
