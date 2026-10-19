@@ -10,7 +10,19 @@ permissions:
 
 jobs:
   build:
-    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+    matrix:
+      include:
+        - os: windows-latest
+          platform: win
+        - os: macos-latest
+          platform: mac
+        # ИСПОЛЬЗУЕМ 22.04, чтобы избежать багов новых версий Ubuntu
+        - os: ubuntu-22.04
+          platform: linux
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout
@@ -21,11 +33,18 @@ jobs:
         with:
           node-version: 22
 
+      # Установка пакетов для сборки Linux (.deb, .rpm, .AppImage)
+      - name: Install Linux Dependencies
+        if: matrix.os == 'ubuntu-22.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rpm libarchive-tools fakeroot libfuse2
+
       - name: Install dependencies
         run: npm ci
 
       - name: Build
-        run: npm run build:win
+        run: npm run build:${{ matrix.platform }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CSC_IDENTITY_AUTO_DISCOVERY: false
@@ -34,6 +53,11 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: dist/*.exe
+          files: |
+            dist/*.exe
+            dist/*.dmg
+            dist/*.AppImage
+            dist/*.deb
+            dist/*.rpm
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
