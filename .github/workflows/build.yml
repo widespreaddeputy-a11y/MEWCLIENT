@@ -32,6 +32,19 @@ jobs:
         with:
           node-version: 22
 
+      # Установка зависимостей для Linux (исправляет ошибку сборки .deb и .rpm)
+      - name: Install Linux dependencies
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rpm libarchive-tools
+
+      # Установка зависимостей для Mac (на всякий случай для конвертации иконок)
+      - name: Install Mac dependencies
+        if: matrix.os == 'macos-latest'
+        run: |
+          brew install graphicsmagick
+
       - name: Install dependencies
         run: npm ci
 
