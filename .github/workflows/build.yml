@@ -22,25 +22,24 @@ jobs:
             platform: linux
 
     runs-on: ${{ matrix.os }}
-    # Используем Docker-образ только для Linux
     container: ${{ matrix.os == 'ubuntu-latest' && 'electronuserland/builder:wine' || '' }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Установка Wine и утилит для сборки Linux-пакетов ВНУТРИ контейнера
-      - name: Install Linux Dependencies
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          sudo dpkg --add-architecture i386
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends wine64 wine32 rpm libarchive-tools fakeroot
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
+
+      # Устанавливаем зависимости без sudo (мы уже root в контейнере)
+      - name: Install Linux Dependencies
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          dpkg --add-architecture i386
+          apt-get update
+          apt-get install -y --no-install-recommends wine64 wine32 rpm libarchive-tools fakeroot
 
       - name: Install dependencies
         run: npm ci
@@ -50,8 +49,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CSC_IDENTITY_AUTO_DISCOVERY: false
-          # Явно указываем electron-builder, что можно и нужно использовать Wine
-          WINE_CMD: "wine"
           ELECTRON_BUILDER_ALLOW_WINE: true
 
       - name: Upload to Release
