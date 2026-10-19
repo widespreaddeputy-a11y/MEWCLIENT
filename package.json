@@ -1,18 +1,15 @@
 {
   "name": "mewclient",
-  "version": "1.0.1",
-  "description": "MewClient — лаунчер Minecraft в стиле Millida",
+  "version": "1.0.2",
+  "description": "MewClient — лаунчер Minecraft",
   "author": "MewClient Team",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "clean": "rmdir /s /q dist",
+    "rebuild": "npm run clean && npm run build:win",
     "build": "electron-builder",
-    "build:win": "electron-builder --win",
-    "build:mac": "electron-builder --mac",
-    "build:linux": "electron-builder --linux"
-  },
-  "dependencies": {
-    "minecraft-launcher-core": "^3.18.0"
+    "build:win": "electron-builder --win"
   },
   "devDependencies": {
     "electron": "^31.0.0",
@@ -25,31 +22,33 @@
       "output": "dist",
       "buildResources": "build"
     },
+    "artifactName": "${productName}-${version}-${arch}.${ext}",
     "files": [
       "main.js",
       "preload.js",
       "src/**/*",
+      "build/icon.ico",
       "package.json"
     ],
     "win": {
+      "icon": "build/icon.ico",
       "target": [
-        { "target": "portable", "arch": ["x64"] }
+        {
+          "target": "portable",
+          "arch": ["x64", "ia32"]
+        }
       ]
     },
-    "mac": {
-      "target": [
-        { "target": "dmg", "arch": ["x64", "arm64"] }
-      ],
-      "category": "public.app-category.games",
-      "identity": null
-    },
     "linux": {
-      "target": [
-        { "target": "AppImage", "arch": ["x64"] },
-        { "target": "deb", "arch": ["x64"] }
-      ],
-      "category": "Game",
-      "maintainer": "MewClient Team"
+      "target": ["AppImage"],
+      "category": "Game"
     }
+  },
+  "dependencies": {
+    "adm-zip": "^0.6.1",
+    "discord-rpc": "^4.0.1",
+    "electron-updater": "^6.8.9",
+    "express": "^5.3.0",
+    "minecraft-launcher-core": "^3.18.2"
   }
 }
