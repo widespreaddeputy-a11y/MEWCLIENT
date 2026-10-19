@@ -18,7 +18,7 @@ jobs:
             platform: win
           - os: macos-latest
             platform: mac
-          - os: ubuntu-latest
+          - os: ubuntu-22.04
             platform: linux
 
     runs-on: ${{ matrix.os }}
@@ -32,18 +32,13 @@ jobs:
         with:
           node-version: 22
 
-      # Установка зависимостей для Linux (исправляет ошибку сборки .deb и .rpm)
-      - name: Install Linux dependencies
-        if: matrix.os == 'ubuntu-latest'
+      # Установка всех необходимых зависимостей для сборки Linux (AppImage, deb, rpm)
+      - name: Install Linux Dependencies
+        if: matrix.os == 'ubuntu-22.04'
         run: |
           sudo apt-get update
-          sudo apt-get install -y rpm libarchive-tools
-
-      # Установка зависимостей для Mac (на всякий случай для конвертации иконок)
-      - name: Install Mac dependencies
-        if: matrix.os == 'macos-latest'
-        run: |
-          brew install graphicsmagick
+          sudo apt-get install -y rpm libarchive-tools libfuse2
+          sudo gem install fpm
 
       - name: Install dependencies
         run: npm ci
